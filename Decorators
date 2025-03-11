@@ -1,0 +1,31 @@
+# Decorators
+==============================================
+def decorator_function(original_function):
+    def wrapper_function():
+        print("Before the function call")
+        original_function()
+        print("After the function call")
+    return wrapper_function
+
+@decorator_function
+def greet():
+    print("Hello, Python!")
+
+greet()
+
+=================================================
+1. *args (Non-Keyword Arguments)
+------------------------------------------
+def add_numbers(*args):
+    return sum(args)
+
+print(add_numbers(1, 2, 3, 4))  # Output: 10
+
+2. **kwargs (Keyword Arguments)
+--------------------------------------
+def person_info(**kwargs):
+    for key, value in kwargs.items():
+        print(f"{key}: {value}")
+
+person_info(name="Alice", age=25, city="New York")
+=========================================================

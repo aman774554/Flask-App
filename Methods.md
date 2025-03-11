@@ -1,7 +1,7 @@
 ## List
 A list is an ordered, mutable collection that allows duplicate elements.
-python
-'''
+
+```python
 # Creating a list
 my_list = [1, 2, 3, 4, 5, 2]
 
@@ -49,10 +49,10 @@ print(copy_list)  # [99, 7, 6, 5, 4, 3, 2, 1]
 # 11. clear() - Removes all elements
 my_list.clear()
 print(my_list)  # []
-'''
+```
 ## Tuple
 A tuple is an ordered, immutable collection that allows duplicate elements.
-
+```python
 # Creating a tuple
 my_tuple = (1, 2, 3, 4, 5, 2)
 
@@ -65,10 +65,10 @@ print(my_tuple.index(4))  # 3
 # Tuples are immutable, but we can concatenate them
 new_tuple = my_tuple + (6, 7)
 print(new_tuple)  # (1, 2, 3, 4, 5, 2, 6, 7)
-
+```
 ## Set
 A set is an unordered, mutable collection that does not allow duplicate elements.
-
+```python
 # Creating a set
 my_set = {1, 2, 3, 4, 5}
 
@@ -107,10 +107,10 @@ print(A.difference(B))  # {1, 2}
 
 # 9. symmetric_difference() - Elements in A or B, but not both
 print(A.symmetric_difference(B))  # {1, 2, 4, 5}
-
+```
 ## Dictionary
 A dictionary is an unordered collection of key-value pairs.
-
+```python
 # Creating a dictionary
 my_dict = {"name": "Alice", "age": 25, "city": "New York"}
 
@@ -149,4 +149,5 @@ print(my_dict)  # {}
 keys = ["a", "b", "c"]
 new_dict = dict.fromkeys(keys, 0)
 print(new_dict)  # {'a': 0, 'b': 0, 'c': 0}
+```
 

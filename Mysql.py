@@ -5,13 +5,8 @@ pip install sqlalchemy pymysql
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-//Replace with your MySQL credentials
 DATABASE_URL = "mysql+pymysql://root:password@localhost:3306/mydatabase"
-
-// Create database engine
 engine = create_engine(DATABASE_URL)
-
-// Create session
 Session = sessionmaker(bind=engine)
 session = Session()
 
@@ -20,7 +15,7 @@ Base = declarative_base()
 
 # Define the User Table (Model)
 from sqlalchemy import Column, Integer, String
-
+========================
 class User(Base):
     __tablename__ = "users"  # Table name in the database
 
@@ -32,7 +27,7 @@ class User(Base):
 // Create the table in MySQL
 Base.metadata.create_all(engine)
 print("Table created successfully!")
-
+========================
 # Add a New User
 def add_user(name, email, age):
     new_user = User(name=name, email=email, age=age)
@@ -51,7 +46,7 @@ def get_users():
 
 // Example usage
 get_users()
-
+========================
 # Update a User
 
 def update_user(user_id, new_name=None, new_email=None, new_age=None):
@@ -70,7 +65,7 @@ def update_user(user_id, new_name=None, new_email=None, new_age=None):
 
 // Example usage
 update_user(1, new_name="Alice Cooper", new_age=26)
-
+========================
 # Delete a User
 def delete_user(user_id):
     user = session.query(User).filter_by(id=user_id).first()
@@ -83,7 +78,7 @@ def delete_user(user_id):
 
 // Example usage
 delete_user(1)
-
+========================
 # Full Example Execution
 
 # Add users

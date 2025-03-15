@@ -29,3 +29,37 @@ def person_info(**kwargs):
 
 person_info(name="Alice", age=25, city="New York")
 =========================================================
+Iterator
+class MyIterator:
+    def __init__(self, max):
+        self.max = max
+        self.current = 0
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.current < self.max:
+            val = self.current
+            self.current += 1
+            return val
+        else:
+            raise StopIteration
+
+it = MyIterator(3)
+for num in it:
+    print(num)  # Output: 0, 1, 2
+=====================================================
+Generator
+def my_generator():
+    yield 1
+    yield 2
+    yield 3
+
+gen = my_generator()
+print(next(gen))  # Output: 1
+print(next(gen))  # Output: 2
+print(next(gen))  # Output: 3
+print(next(gen))  # Output: eror Stopiteration
+
+

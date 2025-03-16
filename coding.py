@@ -29,4 +29,22 @@ print(len(s1) == len(s2) and s2 in s1)
 print(' '.join((str2.split(" ")[::-1])))
 ================================================
 #List
+lst = [1,4,5,3,2,5,8]
+
+print(lst[::-1])
+print(max(lst), min(lst))
+print(sorted(lst))
+print(sorted(lst, reverse=True))
+print(list(set(lst)))
+print(lst.index(5))
+from collections import Counter
+lst2 = [1, 2, 3, 1, 2, 1]
+mydict = dict(Counter(lst2))
+print(max(mydict, key=mydict.get))
+lst3 = [[1, 2], [3, 4], [5]]
+print([item for sublist in lst3 for item in sublist]) 
+print(lst[1:]+lst[:1])
+print(list(set([val for val in lst2 if lst2.count(val) > 1])))
+print(list(set(range(min(lst), max(lst) + 1)) - set(lst))) #missing nums
+print([sum(lst[:i+1]) for i in range(len(lst))])  # commulative sum 
 

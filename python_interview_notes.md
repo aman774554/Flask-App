@@ -1,4 +1,5 @@
 # Python 3 Interview Notes
+https://chatgpt.com/share/67d04418-29c8-800d-b80b-5c5637e417a5
 
 ## 1. Python Basics
 

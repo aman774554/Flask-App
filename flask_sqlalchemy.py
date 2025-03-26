@@ -74,3 +74,18 @@ def delete_user(user_id):
 # Run Flask App
 if __name__ == '__main__':
     app.run(debug=True)
+--------------------------------------------------------------
+user = User.query.filter_by(email="test@example.com").first()  # Simple filter
+user = User.query.filter(User.email == "test@example.com").first()  # More flexible
+
+filter_by() → Simpler syntax, only for equal (=) comparisons.
+filter() → Supports complex conditions like <, >, !=, LIKE, IN, etc.
+
+users = User.query.filter(User.name.ilike("%john%")).all()
+users = User.query.filter(User.id.in_([1, 2, 3])).all()
+from sqlalchemy import func
+result = db.session.query(User.name, func.count(User.id)).group_by(User.name).all()
+users = User.query.order_by(User.name.desc()).all()
+result = db.session.query(User.name, Order.amount).outerjoin(Order, User.id == Order.user_id).all()
+
+

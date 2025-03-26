@@ -1,0 +1,28 @@
+pip install mysql-connector-python
+
+import mysql.connector
+
+conn = mysql.connector.connect(
+    host="localhost",
+    user="your_user",
+    password="your_password",
+    database="your_database"
+)
+cursor = conn.cursor()
+-------------
+cursor.execute("SELECT * FROM users")
+results = cursor.fetchall()  # Fetch all rows
+for row in results:
+    print(row)
+-------------
+cursor.execute("INSERT INTO users (name, email) VALUES (%s, %s)", ("John Doe", "john@example.com"))
+conn.commit()  # Save changes
+--------------
+cursor.execute("UPDATE users SET name = %s WHERE id = %s", ("Jane Doe", 1))
+conn.commit()
+--------------
+cursor.execute("DELETE FROM users WHERE id = %s", (1,))
+conn.commit()
+----------------
+cursor.close()
+conn.close()

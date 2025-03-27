@@ -22,12 +22,16 @@ print(str1[::-1])
 print(str1 == str1[::-1])
 print(str1.count("a"))
 print(str1.replace('n','zzz'))
+print(s.find("world"))  # 6
+print(s.title())  # "Hello World"
+print(s.isdigit())  # True
 print(str1.upper())
 print(str1.lower())
 print(sorted(s1)==sorted(s2))
+print(max(s.split(), key=len))  # "amazing"
 print(''.join([char for char in str1 if char.lower() not in  'aeiou']))
 print(len(s1) == len(s2) and s2 in s1) 
-print(' '.join((str2.split(" ")[::-1])))
+print(" ".join(s.split()[::-1]))  # "World Hello"
 ================================================
 #List
 lst = [1,4,5,3,2,5,8]

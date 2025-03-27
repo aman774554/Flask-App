@@ -1,79 +1,89 @@
 https://chatgpt.com/c/67e43db5-ec48-800d-a437-35e5a9d7af79
+https://chatgpt.com/share/67e54d5a-c184-800d-b3f3-8a54cac9a1f1
 
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from jsonschema import validate, ValidationError
 
 app = Flask(__name__)
-
-# Database Configuration (Replace with your credentials)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://user:password@localhost/dbname'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 db = SQLAlchemy(app)
 
-# Define User Model
+# Model
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
 
-    def to_dict(self):
-        return {"id": self.id, "name": self.name, "email": self.email}
+# JSON Schema for validation
+user_schema = {
+    "type": "object",
+    "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "email": {
+            "type": "string",
+            "format": "email",
+            "pattern": "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$"
+        }
+    },
+    "required": ["name", "email"],
+    "additionalProperties": False
+}
 
-# Create tables (Run this once)
-with app.app_context():
-    db.create_all()
-
-# ----------------- CRUD APIs ----------------- #
-
-# 1. Create User
+# Create User
 @app.route('/users', methods=['POST'])
 def create_user():
-    data = request.json
+    data = request.get_json()
+    try:
+        validate(instance=data, schema=user_schema)
+    except ValidationError as e:
+        return jsonify({"error": e.message}), 400
+
     new_user = User(name=data['name'], email=data['email'])
     db.session.add(new_user)
     db.session.commit()
-    return jsonify({"message": "User created", "user": new_user.to_dict()}), 201
+    return jsonify({"id": new_user.id, "name": new_user.name, "email": new_user.email}), 201
 
-# 2. Get All Users
+# Read Users
 @app.route('/users', methods=['GET'])
 def get_users():
     users = User.query.all()
-    return jsonify([user.to_dict() for user in users]), 200
+    return jsonify([{"id": u.id, "name": u.name, "email": u.email} for u in users])
 
-# 3. Get User by ID
-@app.route('/users/<int:user_id>', methods=['GET'])
-def get_user(user_id):
-    user = User.query.get(user_id)
-    if not user:
-        return jsonify({"error": "User not found"}), 404
-    return jsonify(user.to_dict()), 200
+# Read Single User
+@app.route('/users/<int:id>', methods=['GET'])
+def get_user(id):
+    user = User.query.get_or_404(id)
+    return jsonify({"id": user.id, "name": user.name, "email": user.email})
 
-# 4. Update User
-@app.route('/users/<int:user_id>', methods=['PUT'])
-def update_user(user_id):
-    user = User.query.get(user_id)
-    if not user:
-        return jsonify({"error": "User not found"}), 404
-    data = request.json
-    user.name = data.get('name', user.name)
-    user.email = data.get('email', user.email)
+# Update User
+@app.route('/users/<int:id>', methods=['PUT'])
+def update_user(id):
+    user = User.query.get_or_404(id)
+    data = request.get_json()
+    try:
+        validate(instance=data, schema=user_schema)
+    except ValidationError as e:
+        return jsonify({"error": e.message}), 400
+
+    user.name = data['name']
+    user.email = data['email']
     db.session.commit()
-    return jsonify({"message": "User updated", "user": user.to_dict()}), 200
+    return jsonify({"id": user.id, "name": user.name, "email": user.email})
 
-# 5. Delete User
-@app.route('/users/<int:user_id>', methods=['DELETE'])
-def delete_user(user_id):
-    user = User.query.get(user_id)
-    if not user:
-        return jsonify({"error": "User not found"}), 404
+# Delete User
+@app.route('/users/<int:id>', methods=['DELETE'])
+def delete_user(id):
+    user = User.query.get_or_404(id)
     db.session.delete(user)
     db.session.commit()
-    return jsonify({"message": "User deleted"}), 200
+    return jsonify({'message': 'User deleted'}), 200
 
-# Run Flask App
 if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)
+
 --------------------------------------------------------------
 user = User.query.filter_by(email="test@example.com").first()  # Simple filter
 user = User.query.filter(User.email == "test@example.com").first()  # More flexible

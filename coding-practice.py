@@ -48,8 +48,11 @@ mydict = dict(Counter(lst2))
 print(max(mydict, key=mydict.get))
 lst3 = [[1, 2], [3, 4], [5]]
 print([item for sublist in lst3 for item in sublist]) 
-print(lst[1:]+lst[:1])
-print(list(set([val for val in lst2 if lst2.count(val) > 1])))
+print(sorted(set(lst))[-2])  # 2nd largest
+print(lst[k:]+lst[:k]) # Rotate by k
+print(list(set(lst1) & set(lst2)))  # Intersection
+print(list(set(lst1) | set(lst2)))  # Union
+print(list(set([val for val in lst2 if lst2.count(val) > 1]))) # Duplicate
 print(list(set(range(min(lst), max(lst) + 1)) - set(lst))) #missing nums
-print([sum(lst[:i+1]) for i in range(len(lst))])  # commulative sum 
+print([sum(lst[:i+1]) for i in range(len(lst))])  # commulative sum # [1, 3, 6, 10]
 

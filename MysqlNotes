@@ -46,8 +46,71 @@ SELECT students.name, courses.course_name
 FROM students 
 INNER JOIN courses ON students.id = courses.student_id;
 ==============================================================
+CREATE INDEX idx_name ON students (name);
+---
+CREATE TRIGGER before_insert_students
+BEFORE INSERT ON students
+FOR EACH ROW
+SET NEW.email = LOWER(NEW.email);
+---
+CREATE VIEW student_view AS 
+SELECT name, age FROM students WHERE age > 20;
+
 # Backup
 mysqldump -u root -p school > backup.sql
 
 # Restore
 mysql -u root -p school < backup.sql
+========================================
+Queries
+SELECT * FROM employees;
+SELECT DISTINCT department FROM employees;
+SELECT * FROM employees WHERE salary > 50000;
+SELECT * FROM employees ORDER BY salary DESC;
+
+SELECT e.name, d.department_name  
+FROM employees e  
+INNER JOIN departments d ON e.department_id = d.id;
+
+// Employees same manager
+SELECT e1.name AS Employee, e2.name AS Manager  
+FROM employees e1  
+JOIN employees e2 ON e1.manager_id = e2.id;
+
+//Count employees per department
+SELECT department_id, COUNT(*) AS total_employees  
+FROM employees  
+GROUP BY department_id;
+
+//Find the highest salary in each department
+SELECT department_id, MAX(salary) AS max_salary  
+FROM employees  
+GROUP BY department_id;
+
+//Find the 2nd highest salary
+SELECT DISTINCT salary  
+FROM employees  
+ORDER BY salary DESC  
+LIMIT 1 OFFSET 1;
+
+//Using CASE for conditional output
+SELECT name, salary,  
+  CASE  
+    WHEN salary > 70000 THEN 'High'  
+    WHEN salary BETWEEN 40000 AND 70000 THEN 'Medium'  
+    ELSE 'Low'  
+  END AS salary_category  
+FROM employees;
+
+//Find duplicate records
+SELECT name, COUNT(*)  
+FROM employees  
+GROUP BY name  
+HAVING COUNT(*) > 1;
+
+
+
+
+
+
+

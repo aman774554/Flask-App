@@ -1,1 +1,11 @@
 https://chatgpt.com/share/67d9bcf8-ccc0-800d-bcc6-e247a20f7485
+
+kubectl autoscale deployment my-app --cpu-percent=50 --min=2 --max=10
+ReplicaSet ensures 3 Nginx Pods always run, but a Deployment can update them with zero downtime.
+
+Job = Runs a task once and ensures completion.
+CronJob = Runs scheduled tasks like a Linux cron job.
+
+✅ Prometheus – Collects cluster metrics
+✅ Grafana – Visualizes data
+✅ ELK Stack – Logs analysis

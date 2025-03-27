@@ -87,5 +87,12 @@ from sqlalchemy import func
 result = db.session.query(User.name, func.count(User.id)).group_by(User.name).all()
 users = User.query.order_by(User.name.desc()).all()
 result = db.session.query(User.name, Order.amount).outerjoin(Order, User.id == Order.user_id).all()
+===========================
+
+In Flask projects, most developers use Flask-SQLAlchemy because it simplifies database management and integrates well with Flask apps. 
+It manages engine, session, and Base internally, making it easier to use than raw SQLAlchemy.
+
+For larger applications or microservices, some projects use raw SQLAlchemy with create_engine() and declarative_base(), especially 
+if they want more control over database sessions and connections.
 
 

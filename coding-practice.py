@@ -46,9 +46,9 @@ print(lst.index(5))
 from collections import Counter
 lst2 = [1, 2, 3, 1, 2, 1]
 mydict = dict(Counter(lst2))
-print(max(mydict, key=mydict.get))
+print(max(mydict, key=mydict.get)) #Max dict value
 lst3 = [[1, 2], [3, 4], [5]]
-print([item for sublist in lst3 for item in sublist]) 
+print([item for sublist in lst3 for item in sublist]) # Flat
 print(sorted(set(lst))[-2])  # 2nd largest
 print(lst[k:]+lst[:k]) # Rotate by k
 print(list(set(lst1) & set(lst2)))  # Intersection

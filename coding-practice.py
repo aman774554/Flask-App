@@ -7,6 +7,7 @@ dict1.update(dict2)
 print(list(d.keys()))  # ['a', 'b', 'c']
 print(list(d.values()))  # [1, 2, 3]
 print(dict((sorted(dict1.items(), key=lambda x: x[1])))) # Sort a dictionary by values
+print(sorted(dict1, key=dict1.get, reverse=True)) # Sort a dictionary by values and show only keys
 print({v:k for k,v in dict1.items()}) #swap keys and values
 print("d" in dict1) # key exists in a dictionary True
 print(max(dict1, key=dict1.get)) # maximum value in a dictionary

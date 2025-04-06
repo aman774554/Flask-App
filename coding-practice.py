@@ -30,6 +30,7 @@ print(s.isdigit())  # True
 print(str1.upper())
 print(str1.lower())
 print(sorted(s1)==sorted(s2))
+print(''.join(dict.fromkeys(str))) # Remove duplicate
 print(max(s.split(), key=len))  # "amazing"
 print(''.join([char for char in str1 if char.lower() not in  'aeiou']))
 print(len(s1) == len(s2) and s2 in s1) 

@@ -59,3 +59,14 @@ print(list(set([val for val in lst2 if lst2.count(val) > 1]))) # Duplicate
 print(list(set(range(min(lst), max(lst) + 1)) - set(lst))) #missing nums
 print([sum(lst[:i+1]) for i in range(len(lst))])  # commulative sum # [1, 3, 6, 10]
 
+#######
+[{'TATA': 'Ranjangaon'}, {'TATA': 'Chakan'}, {'Mahindra': 'Nashik'}, {'Mahindra': 'Chakan'}, {'Toyota': 'Bidadi'}, {'Toyota': 'Chennai'}]
+
+{'TATA': ['Ranjangaon', 'Chakan'], 'Mahindra': ['Nashik', 'Chakan'], 'Toyota': ['Bidadi', 'Chennai']}
+
+result = {}
+for item in data:
+    for key, value in item.items():
+        result.setdefault(key, []).append(value)
+print(result)
+#######

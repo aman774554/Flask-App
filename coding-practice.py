@@ -69,4 +69,13 @@ for item in data:
     for key, value in item.items():
         result.setdefault(key, []).append(value)
 print(result)
+
+result = {}
+
+for org in org_detail_list:
+    org_name = org["org_name"]
+    plant_names = [plant["plant_name"] for plant in org["plants"]]
+    result[org_name] = plant_names
+
+print(result)
 #######
